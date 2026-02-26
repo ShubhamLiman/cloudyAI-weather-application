@@ -1,26 +1,94 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* 1. Define the dark mode variant */
+@custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@theme {
+  /* Define all base variables here first */
+  --color-airbnb-rose: #ff385c;
+  --color-airbnb-dark: #222222;
+  --color-airbnb-gray: #717171;
+  --color-airbnb-light-gray: #f7f7f7;
+  --color-airbnb-border: #dddddd;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Use custom properties for the theme colors */
+  --color-bg-main: #ffffff;
+  --color-text-main: #222222;
+  --color-card-bg: #ffffff;
+  --color-card-border: #dddddd;
+
+  /* Move keyframes inside the @theme block */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
+/* 2. Reassign variables for Dark Mode OUTSIDE the @theme block */
+.dark {
+  --color-bg-main: #121212;
+  --color-text-main: #f7f7f7;
+  --color-card-bg: #1e1e1e;
+  --color-card-border: #2a2a2a;
+  --color-airbnb-gray: #a1a1a1;
+}
+
+/* 3. Base Styles */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-text-main);
+  background-color: var(--color-bg-main);
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  @apply transition-colors duration-300;
+}
+
+@layer components {
+  .airbnb-card {
+    @apply bg-[var(--color-card-bg)] border border-[var(--color-card-border)] rounded-2xl transition-all duration-200;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .airbnb-card:hover {
+    @apply shadow-xl;
+    transform: translateY(-2px);
+  }
+
+  .btn-primary {
+    @apply bg-[#FF385C] text-white font-bold rounded-xl px-6 py-3 transition-transform active:scale-95;
+    background: linear-gradient(
+      to right,
+      #e61e4d 0%,
+      #e31c5f 50%,
+      #d70466 100%
+    );
+  }
+
+  .airbnb-input {
+    @apply w-full border border-[var(--color-card-border)] bg-[var(--color-card-bg)] rounded-lg p-3 outline-none transition-all;
+    @apply focus:border-[var(--color-text-main)] focus:ring-1 focus:ring-[var(--color-text-main)];
+  }
+}
+
+.animate-vibe {
+  animation: fadeInUp 0.6s cubic-bezier(0.2, 0, 0, 1) forwards;
+}
+
+.vibe-text {
+  line-height: 1.5rem;
+  letter-spacing: 0.01em;
+  color: var(--color-text-main);
 }
