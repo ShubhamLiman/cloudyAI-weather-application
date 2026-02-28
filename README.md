@@ -49,7 +49,7 @@ Engineering Judgment: To keep the data fresh, I implemented a 24-hour TTL (Time 
 
 ##Setup Instructions
 ###Local Development
-Clone the repo: git clone https://github.com/[your-username]/cloudvibe.git
+Clone the repo: git clone https://github.com/ShubhamLiman/cloudyAI-weather-application.git
 cd cloudvibe
 
 ###Install dependencies: npm install
